@@ -396,7 +396,7 @@ class Owner:
                 "\"Change Nickname\" permission.")
 
     @_set.command(pass_context=True)
-    @checks.is_owner()
+    @checks.admin_or_permissions()
     async def game(self, ctx, *, game=None):
         """Sets Red's playing status
 
@@ -452,12 +452,11 @@ class Owner:
                 await self.bot.send_cmd_help(ctx)
 
     @_set.command(pass_context=True)
-    @checks.is_owner()
-    async def stream(self, ctx, streamer=None, *, stream_title=None):
+    @checks.admin_or_permissions()
+    async def stream(self, ctx, streamer='abeplaysgame', *, stream_title=None):
         """Sets Red's streaming status
 
         Leaving both streamer and stream_title empty will clear it."""
-
         server = ctx.message.server
 
         current_status = server.me.status if server is not None else None

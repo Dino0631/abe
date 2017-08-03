@@ -866,6 +866,38 @@ class Mod:
         else:
             await self.slow_deletion(to_delete)
 
+    #same as cleanup messages  
+    @checks.mod_or_permissions(manage_messages=True)
+    @commands.command(pass_context=True, no_pm=True)
+    async def purge(self, ctx, number: int):
+        """Deletes last X messages.
+
+        Example:
+        purge 26"""
+
+        channel = ctx.message.channel
+        author = ctx.message.author
+        server = author.server
+        is_bot = self.bot.user.bot
+        has_permissions = channel.permissions_for(server.me).manage_messages
+
+        to_delete = []
+
+        if not has_permissions:
+            await self.bot.say("I'm not allowed to delete messages.")
+            return
+
+        async for message in self.bot.logs_from(channel, limit=number+1):
+            to_delete.append(message)
+
+        logger.info("{}({}) deleted {} messages in channel {}"
+                    "".format(author.name, author.id,
+                              number, channel.name))
+
+        if is_bot:
+            await self.mass_purge(to_delete)
+        else:
+            await self.slow_deletion(to_delete)
     @cleanup.command(pass_context=True, no_pm=True, name='bot')
     async def cleanup_bot(self, ctx, number: int):
         """Cleans up command messages and messages from the bot"""

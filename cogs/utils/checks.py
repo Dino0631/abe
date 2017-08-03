@@ -15,6 +15,11 @@ def is_owner_check(ctx):
 def is_owner():
     return commands.check(is_owner_check)
 
+def is_user(id):
+    print("hi")
+    def is_user_check(ctx):
+        return ctx.message.author.id == id
+    return commands.check(is_user_check)
 # The permission system of the bot is based on a "just works" basis
 # You have permissions and the bot has permissions. If you meet the permissions
 # required to execute the command (and the bot does as well) then it goes through
@@ -48,6 +53,14 @@ def role_or_permissions(ctx, check, **perms):
     role = discord.utils.find(check, author.roles)
     return role is not None
 
+# def is_user(ctx, *id):
+
+#     ch = ctx.message.channel
+#     author = ctx.message.author
+#     print('\n\nhello\n\n')
+#     role = discord.utils.find(check, author.roles)
+#     return (author.id in id)
+
 def mod_or_permissions(**perms):
     def predicate(ctx):
         server = ctx.message.server
@@ -66,6 +79,7 @@ def admin_or_permissions(**perms):
     return commands.check(predicate)
 
 def serverowner_or_permissions(**perms):
+    print("hi")
     def predicate(ctx):
         if ctx.message.server is None:
             return False
