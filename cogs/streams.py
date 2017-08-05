@@ -69,6 +69,7 @@ class Streams:
     @commands.command(pass_context=True)
     async def twitch(self, ctx, stream:str='abeplaysgame'):
         """Checks if twitch stream is online"""
+
         stream = escape_mass_mentions(stream)
         regex = r'^(https?\:\/\/)?(www\.)?(twitch\.tv\/)'
         stream = re.sub(regex, '', stream)

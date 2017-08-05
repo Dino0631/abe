@@ -15,10 +15,17 @@ def is_owner_check(ctx):
 def is_owner():
     return commands.check(is_owner_check)
 
-def is_user(id):
-    print("hi")
+
+ #makes sure only users with id in the list id can run the cmd
+def is_user(id:list):
     def is_user_check(ctx):
-        return ctx.message.author.id == id
+        return ctx.message.author.id in id
+    return commands.check(is_user_check)
+
+ #makes sure only users with id not in the list id can run the cmd
+def is_not_user(id:list):
+    def is_user_check(ctx):
+        return ctx.message.author.id not in id
     return commands.check(is_user_check)
 # The permission system of the bot is based on a "just works" basis
 # You have permissions and the bot has permissions. If you meet the permissions
@@ -79,7 +86,6 @@ def admin_or_permissions(**perms):
     return commands.check(predicate)
 
 def serverowner_or_permissions(**perms):
-    print("hi")
     def predicate(ctx):
         if ctx.message.server is None:
             return False

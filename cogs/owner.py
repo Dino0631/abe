@@ -458,6 +458,9 @@ class Owner:
 
         Leaving both streamer and stream_title empty will clear it."""
         server = ctx.message.server
+        if stream_title == None:
+            streamer = None
+
 
         current_status = server.me.status if server is not None else None
 

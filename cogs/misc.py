@@ -1232,14 +1232,33 @@ class RACF:
         await self.bot.delete_message(ctx.message)
 
     @commands.command(pass_context=True)
-    # @checks.is_user('218790601318072321') #dino's discord id
     async def abe(self, ctx):
+        # embed = [0, 1, 2, 3, 4]
+        embed  = discord.Embed(color=discord.Color(0x6441A4))
+        embed.set_author(name="Follow Abe on Social Media!", icon_url="https://cdn.discordapp.com/avatars/218790601318072321/0b047729ae9b8d46f559b6b492ee66df.webp?size=1024")
+        # embed.add_field(name='Link',value='[Google!](https://google.com/)')
+        embed.add_field(name="Twitch!", value='[@abeplaysgame](https://www.twitch.tv/abeplaysgame)')
+        embed.add_field(name="Twitter!", value='[@AbePlaysGame](https://twitter.com/AbePlaysGame)')
+        embed.add_field(name="SnapChat!", value='[@AbeWantsFame](http://www.snapchat.com/add/AbeWantsFame)')
+        embed.add_field(name="Share the Discord!", value='[NounVerbNoun](https://discord.gg/YbwWgnR)')
+        embed.set_image(url='http://i.imgur.com/qmlqppD.png')
+        await self.bot.say(embed=embed)
+        # for e in embed:
+        #     await self.bot.say(embed=e)
+
+
+
+
+    @commands.command(pass_context=True)
+    @checks.is_user(['218790601318072321','222925389641547776']) #dino's discord id
+    async def dino(self, ctx, member:discord.Member=None):
         '''test cmd'''
-        roles = []
-        roles = ctx.message.server.roles
-        roles = list(map(lambda x: str(x), roles))
-        print(roles)
-        await self.bot.say('only abe can run this')
+        # roles = []
+        # roles = ctx.message.server.roles
+        # roles = list(map(lambda x: str(x), roles))
+        # print(roles)
+        await self.bot.say('only abe and dino can run this')
+        # await self.bot.send_message(member, "@\u200bhere")
     # @commands.command(pass_context=True, no_pm=True)
     # async def toggleheist(self, ctx: Context):
     #     """Self-toggle heist role."""
