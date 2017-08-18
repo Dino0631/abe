@@ -1,1 +1,1 @@
-worker: python red.py --start
+worker: python red.py
