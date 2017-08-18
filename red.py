@@ -652,7 +652,6 @@ if __name__ == '__main__':
         loop.run_until_complete(bot.logout())
     finally:
         loop.close()
-        input()
         if bot._shutdown_mode is True:
             exit(0)
         elif bot._shutdown_mode is False:
