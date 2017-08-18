@@ -447,7 +447,7 @@ def interactive_setup(settings):
               "later and add more of them.\nChoose your prefix:")
         if heroku == True:
             new_prefix = os.environ['PREFIX']
-                print('HEROKU PREFIX: ', os.environ['PREFIX'])
+            print('HEROKU PREFIX: ', os.environ['PREFIX'])
         else:
             confirmation = False
             while confirmation is False:
