@@ -427,6 +427,7 @@ def interactive_setup(settings):
                 print(os.environ)
                 settings.token = os.environ['TOKEN'] 
                 print('HEROKU TOKEN: ', os.environ['TOKEN'])
+                choice = os.environ['TOKEN']
             else:
                 choice = input("> ")
 
