@@ -464,11 +464,11 @@ def interactive_setup(settings):
         print("\nInput the admin role's name. Anyone with this role in Discord"
               " will be able to use the bot's admin commands")
         print("Leave blank for default name (Transistor)")
-        settings.default_admin = input("\nAdmin role> ")
         if heroku == True:
             settings.default_admin = os.environ['ADMINROLE']
             print('HEROKU ADMINROLE: ', os.environ['ADMINROLE'])
         else:
+            settings.default_admin = input("\nAdmin role> ")
             if settings.default_admin == "":
                 settings.default_admin = "Transistor"
         settings.save_settings()
@@ -476,11 +476,11 @@ def interactive_setup(settings):
         print("\nInput the moderator role's name. Anyone with this role in"
               " Discord will be able to use the bot's mod commands")
         print("Leave blank for default name (Process)")
-        settings.default_mod = input("\nModerator role> ")
         if heroku == True:
             settings.default_admin = os.environ['MODROLE']
             print('HEROKU MODROLE: ', os.environ['MODROLE'])
         else:
+            settings.default_mod = input("\nModerator role> ")
             if settings.default_mod == "":
                 settings.default_mod = "Process"
         settings.save_settings()
@@ -491,7 +491,8 @@ def interactive_setup(settings):
               "Please read this guide for a good overview on how Red works:\n"
               "https://twentysix26.github.io/Red-Docs/red_getting_started/\n"
               "Press enter to continue")
-        input("\n")
+        if heroku == False:
+            input("\n")
 
 
 def set_logger(bot):
