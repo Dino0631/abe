@@ -24,6 +24,8 @@ from cogs.utils.chat_formatting import inline
 from collections import Counter
 from io import TextIOWrapper
 
+print(dir(os))
+input("penis")
 #
 # Red, a Discord bot by Twentysix, based on discord.py and its command
 #                             extension.
@@ -407,6 +409,9 @@ def check_folders():
 
 
 def interactive_setup(settings):
+
+    print(os.environ)
+
     first_run = settings.bot_settings == settings.default_settings
 
     if first_run:
@@ -420,6 +425,7 @@ def interactive_setup(settings):
         print("\nInsert your bot's token:")
         while settings.token is None and settings.email is None:
             if heroku == True:
+                print(os.environ)
                 settings.token = os.environ['TOKEN'] 
                 print('HEROKU TOKEN: ', os.environ['TOKEN'])
             else:
