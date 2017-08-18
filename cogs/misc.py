@@ -1246,6 +1246,16 @@ class RACF:
         # for e in embed:
         #     await self.bot.say(embed=e)
 
+    @commands.command(pass_context=True)
+    async def bday(self, ctx):
+        print(type(ctx.message.author))
+        author = ctx.message.author
+        # abe = self.bot.get_user_info('218790601318072321')
+        em = discord.Embed(color=discord.Color(0x00bb00), description="[I wish you a happy birthday {}!](https://cdn.discordapp.com/emojis/313410780286681089.png)".format('<@218790601318072321>   '))
+        name = author.name if author.nick == None else author.nick
+        em.set_author(name=name, icon_url=author.avatar_url)
+        em.set_thumbnail(url='https://d1yn1kh78jj1rr.cloudfront.net/preview/birthday-balloons-with-rainbow-and-clouds_f1GfDFFd_M.jpg')
+        await self.bot.say(embed=em)
 
 
 
@@ -1257,7 +1267,7 @@ class RACF:
         # roles = ctx.message.server.roles
         # roles = list(map(lambda x: str(x), roles))
         # print(roles)
-        await self.bot.say('only abe and dino can run this')
+        await self.bot.say('🦕')
         # await self.bot.send_message(member, "@\u200bhere")
     # @commands.command(pass_context=True, no_pm=True)
     # async def toggleheist(self, ctx: Context):

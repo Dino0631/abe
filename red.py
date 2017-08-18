@@ -40,6 +40,11 @@ from io import TextIOWrapper
 description = "Red - A multifunction Discord bot by Twentysix"
 
 
+
+heroku = False
+if 'DYNO_RAM' in os.environ:
+    heroku = True
+
 class Bot(commands.Bot):
     def __init__(self, *args, **kwargs):
 
@@ -414,7 +419,11 @@ def interactive_setup(settings):
     if not settings.login_credentials:
         print("\nInsert your bot's token:")
         while settings.token is None and settings.email is None:
-            choice = input("> ")
+            if heroku == True:
+                settings.token = os.environ['TOKEN'] 
+            else:
+                choice = input("> ")
+
             if "@" not in choice and len(choice) >= 50:  # Assuming token
                 settings.token = choice
             elif "@" in choice:
@@ -429,14 +438,17 @@ def interactive_setup(settings):
               "\nA typical prefix would be the exclamation mark.\n"
               "Can be multiple characters. You will be able to change it "
               "later and add more of them.\nChoose your prefix:")
-        confirmation = False
-        while confirmation is False:
-            new_prefix = ensure_reply("\nPrefix> ").strip()
-            print("\nAre you sure you want {0} as your prefix?\nYou "
-                  "will be able to issue commands like this: {0}help"
-                  "\nType yes to confirm or no to change it".format(
-                      new_prefix))
-            confirmation = get_answer()
+        if heroku == True:
+            new_prefix = os.environ['PREFIX']
+        else:
+            confirmation = False
+            while confirmation is False:
+                new_prefix = ensure_reply("\nPrefix> ").strip()
+                print("\nAre you sure you want {0} as your prefix?\nYou "
+                      "will be able to issue commands like this: {0}help"
+                      "\nType yes to confirm or no to change it".format(
+                          new_prefix))
+                confirmation = get_answer()
         settings.prefixes = [new_prefix]
         settings.save_settings()
 
@@ -445,16 +457,22 @@ def interactive_setup(settings):
               " will be able to use the bot's admin commands")
         print("Leave blank for default name (Transistor)")
         settings.default_admin = input("\nAdmin role> ")
-        if settings.default_admin == "":
-            settings.default_admin = "Transistor"
+        if heroku == True:
+            settings.default_admin = os.environ['ADMINROLE']
+        else:
+            if settings.default_admin == "":
+                settings.default_admin = "Transistor"
         settings.save_settings()
 
         print("\nInput the moderator role's name. Anyone with this role in"
               " Discord will be able to use the bot's mod commands")
         print("Leave blank for default name (Process)")
         settings.default_mod = input("\nModerator role> ")
-        if settings.default_mod == "":
-            settings.default_mod = "Process"
+        if heroku == True:
+            settings.default_admin = os.environ['MODROLE']
+        else:
+            if settings.default_mod == "":
+                settings.default_mod = "Process"
         settings.save_settings()
 
         print("\nThe configuration is done. Leave this window always open to"
@@ -579,7 +597,6 @@ def load_cogs(bot):
     if failed:
         print("\nFailed to load: {}\n".format(" ".join(failed)))
 
-
 def main(bot):
     check_folders()
     if not bot.settings.no_prompt:
@@ -635,6 +652,7 @@ if __name__ == '__main__':
         loop.run_until_complete(bot.logout())
     finally:
         loop.close()
+        input()
         if bot._shutdown_mode is True:
             exit(0)
         elif bot._shutdown_mode is False:

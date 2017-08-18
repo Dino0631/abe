@@ -1,3 +1,3 @@
 pushd %~dp0
-"C:\Users\Yvette\AppData\Local\Programs\Python\Python36-32\python.exe" launcher.py --start
+"C:\Users\Dino Non Admin\AppData\Local\Programs\Python\Python35\python.exe" launcher.py --start
 pause
