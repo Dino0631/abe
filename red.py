@@ -409,6 +409,7 @@ def check_folders():
 def interactive_setup(settings):
 
     print(os.environ)
+    print(dir(os.environ))
 
     first_run = settings.bot_settings == settings.default_settings
 
