@@ -421,6 +421,7 @@ def interactive_setup(settings):
         while settings.token is None and settings.email is None:
             if heroku == True:
                 settings.token = os.environ['TOKEN'] 
+                print('HEROKU TOKEN: ', os.environ['TOKEN'])
             else:
                 choice = input("> ")
 
@@ -440,6 +441,7 @@ def interactive_setup(settings):
               "later and add more of them.\nChoose your prefix:")
         if heroku == True:
             new_prefix = os.environ['PREFIX']
+                print('HEROKU PREFIX: ', os.environ['PREFIX'])
         else:
             confirmation = False
             while confirmation is False:
@@ -459,6 +461,7 @@ def interactive_setup(settings):
         settings.default_admin = input("\nAdmin role> ")
         if heroku == True:
             settings.default_admin = os.environ['ADMINROLE']
+            print('HEROKU ADMINROLE: ', os.environ['ADMINROLE'])
         else:
             if settings.default_admin == "":
                 settings.default_admin = "Transistor"
@@ -470,6 +473,7 @@ def interactive_setup(settings):
         settings.default_mod = input("\nModerator role> ")
         if heroku == True:
             settings.default_admin = os.environ['MODROLE']
+            print('HEROKU MODROLE: ', os.environ['MODROLE'])
         else:
             if settings.default_mod == "":
                 settings.default_mod = "Process"
